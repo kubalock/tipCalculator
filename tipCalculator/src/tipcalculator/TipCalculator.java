@@ -9,67 +9,44 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
+import javafx.application.Application;
+import static javafx.application.Application.launch;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  *
  * @author Grzegorz
  */
-public class TipCalculator {
+public class TipCalculator extends Application {
 
     private static final String USERNAME = "root";
     private static final String PASSWORD = "pass123";
     private static final String CONN_STRING
             = "jdbc:mysql://localhost:3306/mysql";
 
+    Scene scene;
+
+    @Override
+    public void start(Stage stage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("/fxml/Scene.fxml"));
+
+        scene = new Scene(root);
+        scene.getStylesheets().add("/styles/Styles.css");
+
+        stage.setTitle("Tip Calculator");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
 
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
-            System.out.println("Connected!");
-            
-            Statement stmt = (Statement) conn.createStatement();
-            String name = "Greg";
-            String insert = "INSERT INTO person (Name) VALUES ('"+name+"')";
-            stmt.executeUpdate(insert);
-        } catch(SQLException e) {
-            System.err.println(e);
-        }
-        
-        Scanner reader = new Scanner(System.in);
-        System.out.println("Enter the number of people");
-        int n = reader.nextInt();
-        System.out.println("Enter the number of the tips (money)");
-        double m = reader.nextDouble();
-
-        double totalHours = 0;
-
-        ArrayList<Person> people = new ArrayList<Person>();
-
-        for (int i = 0; i < n; i++) {
-            System.out.println("Name");
-            String name = reader.next();
-            System.out.println("Hours");
-            double hours = reader.nextDouble();
-            people.add(new Person(name, hours));
-            totalHours = totalHours + hours;
-            System.out.println();
-        }
-        double moneyPerHour = m / totalHours;
-
-        //people.forEach(lstitem->System.out.println(lstitem.getHours()));
-        System.out.println("Total Hours: " + totalHours);
-        System.out.println("Money per hour: " + moneyPerHour);
-        System.out.println();
-
-        for (Person p : people) {
-            double earnings = moneyPerHour * p.getHours();
-            System.out.println(p.getName() + "'s tips = " + earnings);
-            System.out.println();
-        }
+        launch(args);
     }
 
 }
