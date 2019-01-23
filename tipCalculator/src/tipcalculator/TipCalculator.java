@@ -5,6 +5,7 @@
  */
 package tipcalculator;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -15,10 +16,29 @@ import java.util.Scanner;
  */
 public class TipCalculator {
 
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "pass123";
+    private static final String CONN_STRING
+            = "jdbc:mysql://localhost:3306/mysql";
+
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(CONN_STRING,USERNAME,PASSWORD);
+            System.out.println("Connected!");
+            
+            Statement stmt = (Statement) conn.createStatement();
+            String name = "Greg";
+            String insert = "INSERT INTO person (Name) VALUES ('"+name+"')";
+            stmt.executeUpdate(insert);
+        } catch(SQLException e) {
+            System.err.println(e);
+        }
+        
         Scanner reader = new Scanner(System.in);
         System.out.println("Enter the number of people");
         int n = reader.nextInt();
