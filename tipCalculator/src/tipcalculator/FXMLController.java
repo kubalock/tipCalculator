@@ -9,6 +9,7 @@ package tipcalculator;
  *
  * @author Grzegorz
  */
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Paths;
@@ -43,6 +44,9 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 public class FXMLController implements Initializable {
 
@@ -50,6 +54,9 @@ public class FXMLController implements Initializable {
     private Label label;
     @FXML
     private TableView<Person> tableView;
+
+    @FXML
+    final JFrame frame = new JFrame();
 
     @FXML
     private void handleKeyPressed(KeyEvent event) {
@@ -65,20 +72,42 @@ public class FXMLController implements Initializable {
         Set<Person> output = new HashSet(tableView.getItems());
         Scene scene = tableView.getScene();
         TableView<Person> tableInFocus = null;
-        sqlStatements statement = new sqlStatements();
+        SQL statement = new SQL();
 
-        if (scene.focusOwnerProperty().get() instanceof TableView) {
-            tableInFocus = (TableView) scene.focusOwnerProperty().get();
-            ObservableList<Person> itemsSelected = tableInFocus.getSelectionModel().getSelectedItems();
-            Set<Person> toTable = new HashSet(itemsSelected);
-            toTable = statement.getPerson();
+        Set<Person> toTable = new HashSet();
+        toTable = statement.getPerson();
 
-            //here i should fetch people from database
-            ObservableList<Person> dataForTableViewAndModel = FXCollections.observableArrayList(toTable);
-            tableView.setItems(dataForTableViewAndModel);
-        }
+        //here i should fetch people from database
+        ObservableList<Person> dataForTableViewAndModel = FXCollections.observableArrayList(toTable);
+        tableView.setItems(dataForTableViewAndModel);
     }
 
+    @FXML
+    private void addPerson(ActionEvent event) {
+        textBoxConstructor textBox = new textBoxConstructor();
+        textBox.addPerson();
+    }
+    
+    @FXML
+    private void deletePerson(ActionEvent event) {
+        SQL sql = new SQL();
+        Person person = tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+        sql.deletePerson(person.getName());
+    }
+    
+    @FXML
+    private void editHours(ActionEvent event) {
+        textBoxConstructor textBox = new textBoxConstructor();
+        Person person = tableView.getItems().get(tableView.getSelectionModel().getSelectedIndex());
+        textBox.editHours(person);
+    }
+    
+    @FXML
+    private void splitTips(ActionEvent event) {
+        textBoxConstructor textBox = new textBoxConstructor();
+        textBox.splitTips();
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         List<PersonColumnInfo> columns = PersonTableViewFactory.makeColumnInfoList();

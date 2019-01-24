@@ -24,11 +24,35 @@
                GridPane.rowIndex="1">
     </TableView>
     <Button fx:id="Refresh" 
-               GridPane.columnIndex="0" 
+            GridPane.columnIndex="0" 
             GridPane.rowIndex="2" 
             text="Refresh"
             onAction = "#refresh"
-            />
+    />
+    <Button fx:id="Add" 
+            GridPane.columnIndex="1" 
+            GridPane.rowIndex="0" 
+            text="Add Person"
+            onAction = "#addPerson"
+    />
+        <Button fx:id="Delete" 
+            GridPane.columnIndex="1" 
+            GridPane.rowIndex="2" 
+            text="Delete Person"
+            onAction = "#deletePerson"
+    />
+        <Button fx:id="Edit" 
+            GridPane.columnIndex="1" 
+            GridPane.rowIndex="1" 
+            text="Edit Hours"
+            onAction = "#editHours"
+    />
+        <Button fx:id="Split" 
+            GridPane.columnIndex="1" 
+            GridPane.rowIndex="3" 
+            text="Split Tips"
+            onAction = "#splitTips"
+    />
     <MenuBar fx:id="menuBar" >
         <menus>
             <Menu text="Table 1">

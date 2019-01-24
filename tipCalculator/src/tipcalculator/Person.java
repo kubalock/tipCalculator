@@ -11,14 +11,14 @@ package tipcalculator;
  */
 public class Person {
     private String name;
-    private double hours;
-    private double money;
+    private String hours;
+    private String money;
     
     public Person() {
         
     }
     
-    public Person(String Pname, double Phours, double pMoney) {
+    public Person(String Pname, String Phours, String pMoney) {
         name=Pname;
         hours=Phours;
         money=pMoney;
@@ -28,7 +28,7 @@ public class Person {
         return name;
     }
     
-    public double getHours(){
+    public String getHours(){
         return hours;
     }
         
@@ -37,16 +37,16 @@ public class Person {
         return this;
     }
     
-    public Person setHours(double hours){
+    public Person setHours(String hours){
         this.hours = hours;
         return this;
     }
     
-    public double getMoney() {
+    public String getMoney() {
         return money;
     }
     
-    public Person setMoney(double money) {
+    public Person setMoney(String money) {
         this.money = money;
         return this;
     }

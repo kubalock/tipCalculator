@@ -19,7 +19,7 @@ public class PersonColumnInfo {
         return heading;
     }
     
-    public PersonColumnInfo setHeading(String heding){
+    public PersonColumnInfo setHeading(String heading){
         this.heading = heading;
         return this;
     }
